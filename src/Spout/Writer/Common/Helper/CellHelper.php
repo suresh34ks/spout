@@ -88,4 +88,15 @@ class CellHelper
     {
         return gettype($value) === 'boolean';
     }
+
+    /**
+     * Returns whether the given value looks like a formula
+     *
+     * @param $value
+     * @return bool whether the given value looks like a formula
+     */
+    public static function isFormulaString($value)
+    {
+        return (strpos($value,'=') === 0);
+    }
 }
