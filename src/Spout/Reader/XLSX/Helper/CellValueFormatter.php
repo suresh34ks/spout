@@ -175,8 +175,7 @@ class CellValueFormatter
         if ($shouldFormatAsDate) {
             return $this->formatExcelTimestampValue(floatval($nodeValue), $cellStyleId);
         } else {
-            $nodeIntValue = intval($nodeValue);
-            return ($nodeIntValue == $nodeValue) ? $nodeIntValue : floatval($nodeValue);
+            return $nodeValue;
         }
     }
 
