@@ -20,9 +20,10 @@ class Style
 
     /** @var bool Whether the font should be bold */
     protected $fontBold = false;
+    protected $currencyFormat = false;
     /** @var bool Whether the bold property was set */
     protected $hasSetFontBold = false;
-
+    protected $hasSetCurrencyFormat = false;
     /** @var bool Whether the font should be italic */
     protected $fontItalic = false;
     /** @var bool Whether the italic property was set */
@@ -55,7 +56,7 @@ class Style
 
     /** @var bool Whether specific font properties should be applied */
     protected $shouldApplyFont = false;
-
+protected  $shouldApplyCurrencyFormat = false;
     /** @var bool Whether the text should wrap in the cell (useful for long or multi-lines text) */
     protected $shouldWrapText = false;
     /** @var bool Whether the wrap text property was set */
@@ -130,6 +131,10 @@ class Style
     {
         return $this->fontBold;
     }
+    public function isCurrencyFormat()
+    {
+        return $this->currencyFormat;
+    }
 
     /**
      * @return Style
@@ -141,7 +146,14 @@ class Style
         $this->shouldApplyFont = true;
         return $this;
     }
-
+    
+    public function setCurrencyFormat()
+    {
+        $this->currencyFormat = true;
+        $this->hasSetCurrencyFormat = true;
+        $this->shouldApplyCurrencyFormat = true;
+        return $this;
+    }
     /**
      * @return bool
      */
@@ -376,6 +388,9 @@ class Style
     {
         if (!$this->hasSetFontBold && $baseStyle->isFontBold()) {
             $styleToUpdate->setFontBold();
+        }
+        if (!$this->hasSetCurrencyFormat && $baseStyle->isCurrencyFormat()) {
+            $styleToUpdate->setCurrencyFormat();
         }
         if (!$this->hasSetFontItalic && $baseStyle->isFontItalic()) {
             $styleToUpdate->setFontItalic();

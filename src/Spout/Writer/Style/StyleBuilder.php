@@ -32,6 +32,11 @@ class StyleBuilder
         $this->style->setFontBold();
         return $this;
     }
+    public function setCurrencyFormat()
+    {
+        $this->style->setCurrencyFormat();
+        return $this;
+    }
 
     /**
      * Makes the font italic.

@@ -150,7 +150,7 @@ class StyleHelper extends AbstractStyleHelper
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
 EOD;
-
+        $content .= $this->getNumFmtsSectionContent();
         $content .= $this->getFontsSectionContent();
         $content .= $this->getFillsSectionContent();
         $content .= $this->getBordersSectionContent();
@@ -199,6 +199,15 @@ EOD;
         }
 
         $content .= '</fonts>';
+
+        return $content;
+    }
+    protected function getNumFmtsSectionContent()
+    {
+        $content = '<numFmts count="1">
+		<numFmt numFmtId="100" formatCode="$#,##0.00_);[Red]\($#,##0.00\)"/>
+		<numFmt numFmtId="101" formatCode="$#,##0.00_);[Blue]\($#,##0.00\)"/>
+	</numFmts>';
 
         return $content;
     }
@@ -323,7 +332,9 @@ EOD;
             }
         }
 
-        $content .= '</cellXfs>';
+        $content .= '<xf numFmtId="100" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
+		<xf numFmtId="101" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
+		</cellXfs>';
 
         return $content;
     }

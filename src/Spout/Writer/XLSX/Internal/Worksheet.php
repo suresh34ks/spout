@@ -7,6 +7,7 @@ use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Common\Helper\StringHelper;
 use Box\Spout\Writer\Common\Helper\CellHelper;
 use Box\Spout\Writer\Common\Internal\WorksheetInterface;
+use Box\Spout\Writer\Style\Style;
 
 /**
  * Class Worksheet
@@ -32,7 +33,7 @@ EOD;
 
     /** @var \Box\Spout\Writer\Common\Sheet The "external" sheet */
     protected $externalSheet;
-
+protected  $hasSetCurrencyFormat;
     /** @var string Path to the XML file that will contain the sheet data */
     protected $worksheetFilePath;
 
@@ -210,6 +211,9 @@ EOD;
     protected function getCellXML($rowIndex, $cellNumber, $cellValue, $styleId)
     {
         $columnIndex = CellHelper::getCellIndexFromColumnIndex($cellNumber);
+        if(is_numeric($cellNumber)){
+            $styleId=2;
+        }
         $cellXML = '<c r="' . $columnIndex . $rowIndex . '"';
         $cellXML .= ' s="' . $styleId . '"';
 
@@ -220,7 +224,7 @@ EOD;
         } else if (CellHelper::isBoolean($cellValue)) {
             $cellXML .= ' t="b"><v>' . intval($cellValue) . '</v></c>';
         } else if (CellHelper::isNumeric($cellValue)) {
-            $cellXML .= '><v>' . $cellValue . '</v></c>';
+            $cellXML .= '><v> '. $cellValue . '</v></c>';
         } else if (empty($cellValue)) {
             if ($this->styleHelper->shouldApplyStyleOnEmptyCell($styleId)) {
                 $cellXML .= '/>';
